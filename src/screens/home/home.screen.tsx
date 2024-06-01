@@ -19,13 +19,13 @@ import {hp, wp} from '../../utils';
 
 // State
 import {useAppSelector} from '../../data';
-import {useHomeTab, usePokemon} from './hooks';
+import {useHomeTab} from './hooks';
+import {addPokemonOffset} from '../../routes/pokemon.action';
 
 const HomeScreen = () => {
-  const {listPokemon} = useAppSelector(state => state.pokemon);
+  const {listPokemon, loading} = useAppSelector(state => state.pokemon);
 
   const {navigateDetailPokemon} = useHomeTab();
-  const {loading, handleNextPage} = usePokemon();
 
   return (
     <SafeAreaComponent>
@@ -59,7 +59,7 @@ const HomeScreen = () => {
             <GapComponent height={hp(120)} />
           </>
         }
-        onEndReached={handleNextPage}
+        onEndReached={addPokemonOffset}
         onEndReachedThreshold={0.1}
       />
     </SafeAreaComponent>

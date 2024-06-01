@@ -50,4 +50,8 @@ export interface PokemonChartStatsEntity {
 export interface PokemonState {
   listPokemon: BasePokemonEntity[];
   currentPokemonId?: string;
+  listPokemonOffset: number;
+  loading: boolean;
+  selectedPokemon1: DetailPokemonEntity | null;
+  selectedPokemon2: DetailPokemonEntity | null;
 }

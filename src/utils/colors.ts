@@ -5,4 +5,5 @@ export const colors = {
   dark: '#120E0F',
   dark2: '#191818',
   primary: '#35D0BD',
+  darkTransparent: 'rgba(52, 52, 52, 0.5)',
 };

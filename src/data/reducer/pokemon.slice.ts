@@ -5,6 +5,8 @@ import pokemonReducer from './pokemon.reducer';
 export const initialState: PokemonState = {
   listPokemon: [],
   currentPokemonId: '0',
+  listPokemonOffset: 0,
+  loading: false,
 };
 
 const reportSlice = createSlice({

@@ -20,9 +20,15 @@ import {useAppSelector} from '../../data';
 const DetailScreen = () => {
   const {currentPokemonId} = useAppSelector(state => state.pokemon);
 
+  // Hooks
+  // useDetailTab
   const {handleGoBack} = useDetailTab();
+
+  // useAbilitiesPokemon
   const {setListAbilityId, abilityLoading, listAbilities, setAbilitiesToText} =
     useAbilitiesPokemon();
+
+  // useDetailPokemon
   const {detailPokemon, pokemonChartStats, imageLoading, setImageLoading} =
     useDetailPokemon({
       pokemonId: currentPokemonId,
