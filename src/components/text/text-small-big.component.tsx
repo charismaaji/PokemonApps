@@ -8,7 +8,24 @@ const TextSmallBigComponent = ({
   smallText,
   bigText,
   noMargin,
+  horizontal,
 }: TextSmallBigProps) => {
+  if (horizontal) {
+    return (
+      <BoxContainerComponent
+        flexDirection="row"
+        alignItems="flex-end"
+        marginBottom={noMargin ? 0 : wp(10)}>
+        <TextComponent variant="small" marginBottom={wp(2)}>
+          {smallText}
+        </TextComponent>
+        <TextComponent marginLeft={wp(5)} variant="big bold">
+          {bigText}
+        </TextComponent>
+      </BoxContainerComponent>
+    );
+  }
+
   return (
     <BoxContainerComponent>
       <TextComponent variant="small" marginBottom={wp(2)}>

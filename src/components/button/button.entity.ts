@@ -7,3 +7,8 @@ export interface ButtonProps extends ButtonContainerProps {
   activeOpacity?: number;
   paddingHorizontal?: number;
 }
+
+export interface ButtonDropDownComponentProps {
+  onPress: () => void;
+  marginBottom?: number;
+}

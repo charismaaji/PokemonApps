@@ -35,4 +35,5 @@ export interface TextSmallBigProps {
   smallText: string;
   bigText: string;
   noMargin?: boolean;
+  horizontal?: boolean;
 }
