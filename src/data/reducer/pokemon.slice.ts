@@ -9,6 +9,7 @@ export const initialState: PokemonState = {
   loading: false,
   selectedPokemon1: null,
   selectedPokemon2: null,
+  comparedStatistic: [],
 };
 
 const reportSlice = createSlice({

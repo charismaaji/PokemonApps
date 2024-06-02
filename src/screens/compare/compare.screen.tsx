@@ -16,68 +16,73 @@ import {BarChart} from 'react-native-gifted-charts';
 import {useCompare, useCompareModal} from './hooks';
 import {useAppSelector} from '../../data';
 import {addPokemonOffset} from '../../routes/pokemon.action';
-import {removeSelectedPokemon} from './compare.action';
+import {comparePokemon, removeSelectedPokemon} from './compare.action';
 
-const data = [
-  {
-    value: 2500,
-    frontColor: '#006DFF',
-    gradientColor: '#009FFF',
-    spacing: 6,
-    label: 'special-defense',
-  },
-  {value: 2400, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
+// const data = [
+//   {
+//     value: 2500,
+//     frontColor: '#006DFF',
+//     gradientColor: '#009FFF',
+//     spacing: 6,
+//     label: 'special-defense',
+//   },
+//   {value: 2400, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
 
-  {
-    value: 3500,
-    frontColor: '#006DFF',
-    gradientColor: '#009FFF',
-    spacing: 6,
-    label: 'Feb',
-  },
-  {value: 3000, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
+//   {
+//     value: 3500,
+//     frontColor: '#006DFF',
+//     gradientColor: '#009FFF',
+//     spacing: 6,
+//     label: 'Feb',
+//   },
+//   {value: 3000, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
 
-  {
-    value: 4500,
-    frontColor: '#006DFF',
-    gradientColor: '#009FFF',
-    spacing: 6,
-    label: 'Mar',
-  },
-  {value: 4000, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
+//   {
+//     value: 4500,
+//     frontColor: '#006DFF',
+//     gradientColor: '#009FFF',
+//     spacing: 6,
+//     label: 'Mar',
+//   },
+//   {value: 4000, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
 
-  {
-    value: 5200,
-    frontColor: '#006DFF',
-    gradientColor: '#009FFF',
-    spacing: 6,
-    label: 'Apr',
-  },
-  {value: 4900, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
+//   {
+//     value: 5200,
+//     frontColor: '#006DFF',
+//     gradientColor: '#009FFF',
+//     spacing: 6,
+//     label: 'Apr',
+//   },
+//   {value: 4900, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
 
-  {
-    value: 3000,
-    frontColor: '#006DFF',
-    gradientColor: '#009FFF',
-    spacing: 6,
-    label: 'May',
-  },
-  {value: 2800, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
+//   {
+//     value: 3000,
+//     frontColor: '#006DFF',
+//     gradientColor: '#009FFF',
+//     spacing: 6,
+//     label: 'May',
+//   },
+//   {value: 2800, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
 
-  {
-    value: 3500,
-    frontColor: '#006DFF',
-    gradientColor: '#009FFF',
-    spacing: 6,
-    label: 'Feb',
-  },
-  {value: 3000, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
-];
+//   {
+//     value: 3500,
+//     frontColor: '#006DFF',
+//     gradientColor: '#009FFF',
+//     spacing: 6,
+//     label: 'Feb',
+//   },
+//   {value: 3000, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
+// ];
 
 const CompareScreen = () => {
   // Redux
-  const {listPokemon, loading, selectedPokemon1, selectedPokemon2} =
-    useAppSelector(state => state.pokemon);
+  const {
+    listPokemon,
+    loading,
+    selectedPokemon1,
+    selectedPokemon2,
+    comparedStatistic,
+  } = useAppSelector(state => state.pokemon);
 
   // Hooks
   // useCompareModal
@@ -133,7 +138,10 @@ const CompareScreen = () => {
             marginBottom={hp(30)}>
             <CardSelectPokemonComponent
               uri={selectedPokemon1 ? imageBaseUrl(selectedPokemon1.id) : ''}
-              onPressCancel={() => removeSelectedPokemon(1)}
+              onPressCancel={() => {
+                removeSelectedPokemon(1);
+                setShowCompare(false);
+              }}
               onPressSelect={() => {
                 setShowModalPokemon(true);
                 setQueueNumber(1);
@@ -142,7 +150,10 @@ const CompareScreen = () => {
 
             <CardSelectPokemonComponent
               uri={selectedPokemon2 ? imageBaseUrl(selectedPokemon2.id) : ''}
-              onPressCancel={() => removeSelectedPokemon(2)}
+              onPressCancel={() => {
+                removeSelectedPokemon(2);
+                setShowCompare(false);
+              }}
               onPressSelect={() => {
                 setShowModalPokemon(true);
                 setQueueNumber(2);
@@ -152,7 +163,10 @@ const CompareScreen = () => {
 
           <ButtonComponent
             title="Compare"
-            onPress={() => setShowCompare(true)}
+            onPress={async () => {
+              setShowCompare(true);
+              await comparePokemon();
+            }}
           />
 
           {!selectedPokemon1 ||
@@ -196,10 +210,10 @@ const CompareScreen = () => {
               </BoxContainerComponent>
 
               <BarChart
-                barWidth={wp(25)}
+                barWidth={wp(30)}
                 barBorderRadius={4}
                 frontColor="lightgray"
-                data={data}
+                data={comparedStatistic}
                 yAxisThickness={0}
                 yAxisTextStyle={{color: colors.textHE, fontSize: wp(12)}}
                 xAxisThickness={0}

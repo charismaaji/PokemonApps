@@ -47,6 +47,14 @@ export interface PokemonChartStatsEntity {
   frontColor?: string;
 }
 
+export interface PokemonStatsEntity {
+  value: number;
+  frontColor: string;
+  spacing?: number;
+  label?: string;
+  id?: number;
+}
+
 export interface PokemonState {
   listPokemon: BasePokemonEntity[];
   currentPokemonId?: string;
@@ -54,4 +62,5 @@ export interface PokemonState {
   loading: boolean;
   selectedPokemon1: DetailPokemonEntity | null;
   selectedPokemon2: DetailPokemonEntity | null;
+  comparedStatistic: PokemonStatsEntity[];
 }

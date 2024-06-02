@@ -8,7 +8,7 @@ import {DetailPokemonEntity} from '../../data/entity';
 export const removeSelectedPokemon = dispatchable((queue: number) => {
   return async (dispatch: Dispatch<ActionEntity>) => {
     dispatch(
-      pokemonAction['pokemon/set-selected-pokemon']({
+      pokemonAction['pokemon/remove-selected-pokemon']({
         data: null,
         queue: queue,
       }),
@@ -44,3 +44,9 @@ export const setCurrentPokemonId = dispatchable(
     };
   },
 );
+
+export const comparePokemon = dispatchable(() => {
+  return async (dispatch: Dispatch<ActionEntity>) => {
+    dispatch(pokemonAction['pokemon/compare-data']());
+  };
+});

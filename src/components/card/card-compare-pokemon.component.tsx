@@ -30,7 +30,7 @@ const CardComparePokemonComponent = ({data}: {data: DetailPokemonEntity}) => {
 
       <TextSmallBigComponent
         horizontal
-        smallText="Height"
+        smallText="Weight"
         bigText={`${data.weight} kg`}
       />
     </BoxContainerComponent>
