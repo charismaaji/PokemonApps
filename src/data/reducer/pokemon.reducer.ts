@@ -14,6 +14,12 @@ export default {
   ) => {
     state.loading = action.payload;
   },
+  'pokemon/set-show-compare': (
+    state: PokemonState,
+    action: PayloadAction<boolean>,
+  ) => {
+    state.showCompare = action.payload;
+  },
   'pokemon/set-list-pokemon': (
     state: PokemonState,
     action: PayloadAction<{data: BasePokemonEntity[]; previous: string | null}>,

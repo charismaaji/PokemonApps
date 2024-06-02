@@ -10,19 +10,22 @@ import {
   SafeAreaComponent,
   TextComponent,
 } from '../../components';
-import {colors, hp, wp} from '../../utils';
+import {colors, hp, imageBaseUrl, wp} from '../../utils';
 import {ImageGalaxy} from '../../assets';
 import {useAbilitiesPokemon, useDetailPokemon, useDetailTab} from './hooks';
 import {BarChart} from 'react-native-gifted-charts';
-import {ScrollView} from 'react-native';
+import {Alert, ScrollView} from 'react-native';
 import {useAppSelector} from '../../data';
+import {setCurrentPokemonId} from './detail.action';
 
 const DetailScreen = () => {
-  const {currentPokemonId} = useAppSelector(state => state.pokemon);
+  const {currentPokemonId, selectedPokemon1} = useAppSelector(
+    state => state.pokemon,
+  );
 
   // Hooks
   // useDetailTab
-  const {handleGoBack} = useDetailTab();
+  const {handleGoBack, loading, setLoading} = useDetailTab();
 
   // useAbilitiesPokemon
   const {setListAbilityId, abilityLoading, listAbilities, setAbilitiesToText} =
@@ -35,10 +38,29 @@ const DetailScreen = () => {
       setListAbilityId,
     });
 
+  const handleSetPokemon = async () => {
+    setLoading(true);
+    const result = await setCurrentPokemonId({
+      pokemonId: detailPokemon?.id,
+      queueNumber: !selectedPokemon1 ? 1 : 2,
+    });
+    setLoading(false);
+
+    if (!result.success) {
+      return Alert.alert('Error', 'Failed to set pokemon');
+    }
+
+    Alert.alert('Success', 'Pokemon has been set');
+  };
+
   return (
     <SafeAreaComponent>
       <ScrollView>
-        <NavbarComponent onPress={handleGoBack} title="Detail" />
+        <NavbarComponent
+          onPress={handleGoBack}
+          title="Detail"
+          disabled={loading}
+        />
 
         {detailPokemon && (
           <BoxContainerComponent>
@@ -68,7 +90,7 @@ const DetailScreen = () => {
                 <ImageComponent
                   isSvg
                   image={{
-                    uri: `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${detailPokemon.id}.svg`,
+                    uri: imageBaseUrl(detailPokemon.id),
                   }}
                   width={wp(240)}
                   height={wp(240)}
@@ -155,7 +177,12 @@ const DetailScreen = () => {
       </ScrollView>
 
       <BoxContainerComponent marginHorizontal={wp(20)} paddingVertical={hp(15)}>
-        <ButtonComponent title="Compare" />
+        <ButtonComponent
+          title="Compare"
+          onPress={handleSetPokemon}
+          loading={loading}
+          disabled={loading}
+        />
       </BoxContainerComponent>
     </SafeAreaComponent>
   );

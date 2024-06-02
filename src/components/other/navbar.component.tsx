@@ -8,13 +8,18 @@ import {IconArrowBack} from '../../assets';
 const NavbarComponent = ({
   onPress,
   title,
+  disabled,
 }: {
   onPress: () => void;
   title: string;
+  disabled: boolean;
 }) => {
   return (
     <BoxContainerComponent flexDirection="row" alignItems="center">
-      <ButtonContainerComponent padding={wp(20)} onPress={onPress}>
+      <ButtonContainerComponent
+        padding={wp(20)}
+        onPress={onPress}
+        disabled={disabled}>
         <ImageComponent image={IconArrowBack} width={wp(24)} height={wp(24)} />
       </ButtonContainerComponent>
 

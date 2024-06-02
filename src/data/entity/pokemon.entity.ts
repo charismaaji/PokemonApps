@@ -63,4 +63,5 @@ export interface PokemonState {
   selectedPokemon1: DetailPokemonEntity | null;
   selectedPokemon2: DetailPokemonEntity | null;
   comparedStatistic: PokemonStatsEntity[];
+  showCompare: boolean;
 }

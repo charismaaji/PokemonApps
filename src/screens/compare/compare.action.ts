@@ -16,6 +16,12 @@ export const removeSelectedPokemon = dispatchable((queue: number) => {
   };
 });
 
+export const setShowCompare = dispatchable((compare: boolean) => {
+  return async (dispatch: Dispatch<ActionEntity>) => {
+    dispatch(pokemonAction['pokemon/set-show-compare'](compare));
+  };
+});
+
 export const setCurrentPokemonId = dispatchable(
   ({pokemonId, queueNumber}: {pokemonId: string; queueNumber: number}) => {
     return async (dispatch: Dispatch<ActionEntity>) => {

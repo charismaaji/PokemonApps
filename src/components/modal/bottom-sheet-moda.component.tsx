@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Pressable, StyleSheet} from 'react-native';
 
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -10,6 +10,7 @@ import {FlatList} from 'react-native-gesture-handler';
 import {CardPokemonComponent} from '../card';
 import {Portal} from '@gorhom/portal';
 import {LoadingComponent} from '../other';
+import {BasePokemonEntity} from '../../data/entity';
 
 const BottomSheetModalComponent = ({
   bottomSheetRef,
@@ -22,6 +23,26 @@ const BottomSheetModalComponent = ({
   loading,
   loadingSelectPokemon,
 }: BottomSheetModalComponentProps) => {
+  const renderItem = useCallback(
+    ({item}: {item: BasePokemonEntity}) => {
+      if (loadingSelectPokemon) {
+        return null;
+      }
+      return (
+        <CardPokemonComponent
+          key={item.id}
+          image={item.image}
+          name={item.name}
+          id={item.id}
+          onPress={() => onSelectPokemon(item)}
+        />
+      );
+    },
+    [loadingSelectPokemon, onSelectPokemon],
+  );
+
+  const keyExtractor = useCallback((item: BasePokemonEntity) => item.name, []);
+
   return (
     <Portal>
       <BoxContainerComponent
@@ -47,21 +68,8 @@ const BottomSheetModalComponent = ({
           style={styles.bottomSheetContainer}>
           <FlatList
             data={data}
-            renderItem={({item}) => {
-              if (loadingSelectPokemon) {
-                return null;
-              }
-              return (
-                <CardPokemonComponent
-                  key={item.id}
-                  image={item.image}
-                  name={item.name}
-                  id={item.id}
-                  onPress={() => onSelectPokemon(item)}
-                />
-              );
-            }}
-            keyExtractor={item => item.name}
+            renderItem={renderItem}
+            keyExtractor={keyExtractor}
             ListFooterComponent={
               <>
                 {loading && <LoadingComponent />}
