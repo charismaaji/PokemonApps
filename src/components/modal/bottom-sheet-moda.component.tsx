@@ -20,6 +20,7 @@ const BottomSheetModalComponent = ({
   onSelectPokemon,
   loadMore,
   loading,
+  loadingSelectPokemon,
 }: BottomSheetModalComponentProps) => {
   return (
     <Portal>
@@ -47,6 +48,9 @@ const BottomSheetModalComponent = ({
           <FlatList
             data={data}
             renderItem={({item}) => {
+              if (loadingSelectPokemon) {
+                return null;
+              }
               return (
                 <CardPokemonComponent
                   key={item.id}
@@ -61,6 +65,7 @@ const BottomSheetModalComponent = ({
             ListFooterComponent={
               <>
                 {loading && <LoadingComponent />}
+                {loadingSelectPokemon && <LoadingComponent />}
                 <GapComponent height={hp(120)} />
               </>
             }

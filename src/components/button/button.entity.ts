@@ -11,4 +11,5 @@ export interface ButtonProps extends ButtonContainerProps {
 export interface ButtonDropDownComponentProps {
   onPress: () => void;
   marginBottom?: number;
+  text: string;
 }

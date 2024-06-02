@@ -1,5 +1,5 @@
 import {Dispatch} from '@reduxjs/toolkit';
-import {dispatchable, instance} from '../utils';
+import {dispatchable, imageBaseUrl, instance} from '../utils';
 import {ActionEntity} from '../data';
 import {actions as pokemonAction} from '../data/reducer/pokemon.slice';
 import {AxiosResponse} from 'axios';
@@ -32,7 +32,7 @@ export const getListPokemon = dispatchable(({offset}: {offset: number}) => {
         return {
           id: id,
           name: val.name,
-          image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`,
+          image: imageBaseUrl(id),
         };
       });
 

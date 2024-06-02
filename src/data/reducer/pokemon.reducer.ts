@@ -32,7 +32,7 @@ export default {
       state.listPokemonOffset = state.listPokemonOffset + 25;
     }
   },
-  'pokemon/set-selected-pokemon-': (
+  'pokemon/set-selected-pokemon': (
     state: PokemonState,
     action: PayloadAction<{data: DetailPokemonEntity | null; queue: number}>,
   ) => {

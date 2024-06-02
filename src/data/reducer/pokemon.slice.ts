@@ -7,6 +7,8 @@ export const initialState: PokemonState = {
   currentPokemonId: '0',
   listPokemonOffset: 0,
   loading: false,
+  selectedPokemon1: null,
+  selectedPokemon2: null,
 };
 
 const reportSlice = createSlice({

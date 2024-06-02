@@ -3,3 +3,4 @@ export * from './colors';
 export * from './global-style';
 export * from './dispatchable';
 export * from './instance';
+export * from './image-url';

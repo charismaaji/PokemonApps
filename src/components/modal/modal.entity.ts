@@ -11,4 +11,5 @@ export interface BottomSheetModalComponentProps {
   onSelectPokemon: (pokemon: BasePokemonEntity) => void;
   loadMore: () => void;
   loading: boolean;
+  loadingSelectPokemon: boolean;
 }

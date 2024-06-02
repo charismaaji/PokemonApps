@@ -9,6 +9,7 @@ import {ButtonDropDownComponentProps} from './button.entity';
 const DropDownButtonComponent = ({
   onPress,
   marginBottom,
+  text,
 }: ButtonDropDownComponentProps) => {
   return (
     <BoxContainerComponent marginBottom={marginBottom}>
@@ -30,7 +31,7 @@ const DropDownButtonComponent = ({
           width={wp(300)}
           color={colors.textHE}
           numberOfLines={1}>
-          Choose Pokemon
+          {text}
         </TextComponent>
         <BoxContainerComponent marginRight={wp(15)}>
           <ImageComponent
